@@ -1,6 +1,6 @@
 const APIkey = "6fad23d1c535532a6c14b68d1e5d7b64";
-const searchTerm = document.getElementById('input');
-const searchBut = document.getElementById('search');
+const searchTerm = document.getElementsByClassName('input');
+const searchBut = document.getElementsByClassName('search');
 
 const stateCodes = {
     Alabama: "AL",
@@ -87,3 +87,9 @@ const countryCodes = {
     Bonaire_Sint_Eustatius_Saba: "BQ",
     Bosnia_and_Herzegovina: "BA",
 }
+
+function searchWeather() {
+    
+}
+
+searchBut.addEventListener('click', searchWeather());
