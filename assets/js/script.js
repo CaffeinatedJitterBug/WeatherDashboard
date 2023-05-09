@@ -1,6 +1,4 @@
 const APIkey = "6fad23d1c535532a6c14b68d1e5d7b64";
-const searchTerm = document.getElementsByClassName('input');
-const searchBut = document.getElementsByClassName('search');
 
 const stateCodes = {
     Alabama: "AL",
@@ -89,7 +87,8 @@ const countryCodes = {
 }
 
 function searchWeather() {
-    
+    const searchTerm = document.getElementsByClassName('input');
+    const searchBut = document.getElementsByClassName('search');
 }
 
 searchBut.addEventListener('click', searchWeather());
