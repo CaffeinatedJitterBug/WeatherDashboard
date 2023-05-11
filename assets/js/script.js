@@ -1,91 +1,7 @@
 const APIkey = "6fad23d1c535532a6c14b68d1e5d7b64";
 const searchBtn = document.querySelector('.search');
-
-const stateCodes = {
-    Alabama: "AL",
-    Alaska: "AK",
-    Arizona: "AZ",
-    Arkansas: "AR",
-    California: "CA",
-    Colorado: "CO",
-    Connecticut: "CT",
-    Delaware: "DE",
-    District_of_Columbia: "DC",
-    Florida: "FL",
-    Georgia: "GA",
-    Hawaii: "HI",
-    Idaho: "ID",
-    Illinois: "IL",
-    Indiana: "IN",
-    Iowa: "IA",
-    Kansas: "KS",
-    Kentucky: "KY",
-    Louisiana: "LA",
-    Maine: "ME",
-    Maryland: "MD",
-    Massachusetts: "MA",
-    Michigan: "MI",
-    Minnesota: "MN",
-    Mississippi: "MS",
-    Missouri: "MO",
-    Montana: "MT",
-    Nebraska: "NE",
-    Nevada: "NV",
-    New_Hampshire: "NH",
-    New_Jersey: "NJ",
-    New_Mexico: "NM",
-    New_York: "NY",
-    North_Carolina: "NC",
-    North_Dakota: "	ND",
-    Ohio: "OH",
-    Oklahoma: "OK",
-    Oregon: "OR",
-    Pennsylvania: "PA",
-    Rhode_Island: "RI",
-    South_Carolina: "SC",
-    South_Dakota: "SD",
-    Tennessee: "TN",
-    Texas: "TX",
-    Utah: "UT",
-    Vermont: "VT",
-    Virginia: "VA",
-    Washington: "WA",
-    West_Virginia: "WV",
-    Wisconsin: "WI",
-    Wyoming: "WY"
-}
-
-const countryCodes = {
-    Afghanistan: "AF",
-    Aland_Islands: "AX",
-    Albania: "AL",
-    Algeria: "DZ",
-    American_Samoa: "AS",
-    Andorra: "AD",
-    Angola: "AO",
-    Anguilla: "AI",
-    Antarctica: "AQ",
-    Antigua_and_Barbuda: "AG",
-    Argentina: "AR",
-    Armenia: "AM",
-    Aruba: "AW",
-    Australia: "AU",
-    Austria: "AT",
-    Azerbaijan: "AZ",
-    Bahamas: "BS",
-    Bahrain: "BH",
-    Bangladesh: "BD",
-    Barbados: "BB",
-    Belarus: "BY",
-    Belgium: "BE",
-    Belize: "BZ",
-    Benin: "BJ",
-    Bermuda: "BM",
-    Bhutan: "BT",
-    Bolivia: "BO",
-    Bonaire_Sint_Eustatius_Saba: "BQ",
-    Bosnia_and_Herzegovina: "BA",
-}
+let forecast = [];
+let town = '';
 
 searchBtn.addEventListener('click', searchWeather);
 
@@ -95,7 +11,7 @@ function searchWeather(event) {
     const splitTerm = searchTerm.split(",");
     let geoURL = 'https://api.openweathermap.org/data/2.5/forecast?q='
 
-    for (x=0; x<splitTerm.length; x++) {
+    for (let x=0; x<splitTerm.length; x++) {
         splitTerm[x] = splitTerm[x].trim();
     }
     
@@ -114,11 +30,32 @@ function searchWeather(event) {
     }
 
     fetch(geoURL)
-        .then(function (response) {
+        .then(function(response) {
             return response.json();
         })
-        .then(function (data) {
-            const lattitude = data.city.coord.lat;
-            const longitude = data.city.coord.lon;
+        .then(function(coordinates) {
+            const lattitude = coordinates.city.coord.lat;
+            const longitude = coordinates.city.coord.lon;
+            const nextFetch = 'https://api.openweathermap.org/data/2.5/forecast?units=imperial&cnt=40&lat=' + lattitude + '&lon=' + longitude + '&appid=' + APIkey;
+            
+            fetch(nextFetch)
+            .then(function(respond) {
+                return respond.json();
+            })
+            .then(function(weather) {
+                const weatherList = weather.list
+                console.log(weatherList);
+                town = weather.city.name;
+                const forecastItem = {
+                    date: '',
+                    temp: '',
+                    wind: '',
+                    humid: ''
+                };
+                for (let x=0; x<5; x++) {
+                     
+                }
+                console.log(forecastItem)
+            })
         })
 }
