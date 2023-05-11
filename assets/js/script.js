@@ -93,13 +93,18 @@ function searchWeather(event) {
     event.preventDefault();
     const searchTerm = document.querySelector('.input').value;
     const splitTerm = searchTerm.split(",");
-    let geoURL = 'api.openweathermap.org/data/2.5/forecast?q='
+    let geoURL = 'https://api.openweathermap.org/data/2.5/forecast?q='
+
+    for (x=0; x<splitTerm.length; x++) {
+        splitTerm[x] = splitTerm[x].trim();
+    }
     
     if (!searchTerm) {
         const error = document.createElement('p');
         error.textContent = 'Please enter a valid city name';
         errorSpace = document.querySelector('#search-form');
         errorSpace.appendChild(error);
+        return;
     } else if (splitTerm.length === 1) {
         geoURL = geoURL + splitTerm[0] + '&appid=' + APIkey;
     } else if (splitTerm.length === 2) {
@@ -107,4 +112,13 @@ function searchWeather(event) {
     } else {
         geoURL = geoURL + splitTerm[0] + ',' + splitTerm[1] + ',' + splitTerm[2] + '&appid=' + APIkey;
     }
+
+    fetch(geoURL)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            const lattitude = data.city.coord.lat;
+            const longitude = data.city.coord.lon;
+        })
 }
