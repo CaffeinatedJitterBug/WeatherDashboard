@@ -1,4 +1,5 @@
 const APIkey = "6fad23d1c535532a6c14b68d1e5d7b64";
+const searchBtn = document.querySelector('.search');
 
 const stateCodes = {
     Alabama: "AL",
@@ -86,9 +87,24 @@ const countryCodes = {
     Bosnia_and_Herzegovina: "BA",
 }
 
-function searchWeather() {
-    const searchTerm = document.getElementsByClassName('input');
-    const searchBut = document.getElementsByClassName('search');
-}
+searchBtn.addEventListener('click', searchWeather);
 
-searchBut.addEventListener('click', searchWeather());
+function searchWeather(event) {
+    event.preventDefault();
+    const searchTerm = document.querySelector('.input').value;
+    const splitTerm = searchTerm.split(",");
+    let geoURL = 'api.openweathermap.org/data/2.5/forecast?q='
+    
+    if (!searchTerm) {
+        const error = document.createElement('p');
+        error.textContent = 'Please enter a valid city name';
+        errorSpace = document.querySelector('#search-form');
+        errorSpace.appendChild(error);
+    } else if (splitTerm.length === 1) {
+        geoURL = geoURL + splitTerm[0] + '&appid=' + APIkey;
+    } else if (splitTerm.length === 2) {
+        geoURL = geoURL + splitTerm[0] + ',' + splitTerm[1] + '&appid=' + APIkey;
+    } else {
+        geoURL = geoURL + splitTerm[0] + ',' + splitTerm[1] + ',' + splitTerm[2] + '&appid=' + APIkey;
+    }
+}
