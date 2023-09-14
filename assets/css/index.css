@@ -1,0 +1,25 @@
+* {
+    
+}
+
+head {
+    display: none;
+}
+
+body {
+    background-color: purple;
+    margin: 5%;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+}
+
+.input {
+    width:20%
+}

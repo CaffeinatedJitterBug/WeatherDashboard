@@ -1,0 +1,16 @@
+* {
+    background-color: purple;
+}
+
+ul {
+    display: block;
+    border: 2px solid;
+    margin: auto;
+    width: 20%;
+    list-style-type: none;
+}
+
+li {
+    display: flex;
+    justify-content: center;
+}
